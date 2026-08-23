@@ -240,7 +240,7 @@ class Program
 
         for (int i = 1; i < grid.GetLength(0); i++)
         {
-            if (grid[i, i] != firstNumber)
+            if (grid[i, lastIndex - i] != firstNumber)
             {
                 return false;
             }
