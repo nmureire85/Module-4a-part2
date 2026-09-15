@@ -25,7 +25,7 @@ public class UIMethods
         }
     }
 
-    public static void PrintLinesToPlayer()
+    public static void PrintLinesToPlay()
     {
         Console.WriteLine("Chose which lines to play:");
         Console.WriteLine();
@@ -36,16 +36,42 @@ public class UIMethods
         Console.WriteLine("5. All lines");
     }
 
-    public static int GetRowDimension(int row)
+    public static int GetRowDimension()
     {
-        Console.WriteLine("Enter row dimension for your grid");
-        return row;
-    }
+        while (true)
+        {
+            Console.Write("Enter row dimension for your grid: ");
+            string input = Console.ReadLine();
 
-    public static int GetColumnDimension(int column)
+            if (int.TryParse(input, out int rows))
+            {
+                if (rows > 0)
+                {
+                    return rows;
+                }
+            }
+
+            Console.WriteLine("Please enter a positive number.");
+        }
+    }
+    
+    public static int GetColumnDimension()
     {
-        Console.WriteLine("Enter column dimension for your grid");
-        return column;
+        while (true)
+        {
+            Console.Write("Enter column dimension for your grid: ");
+            string input = Console.ReadLine();
+
+            if (int.TryParse(input, out int column))
+            {
+                if (column > 0)
+                {
+                    return column;
+                }
+            }
+
+            Console.WriteLine("Please enter a positive number.");
+        }
     }
 
     public static int GetPlayerChoice()
@@ -61,7 +87,6 @@ public class UIMethods
 
     public static void ApplyLineSeperator()
     {
-        Console.WriteLine();
         Console.WriteLine();
     }
 

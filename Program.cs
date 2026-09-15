@@ -31,13 +31,13 @@ class Program
         }
 
         UIMethods.ApplyLineSeperator();
-        UIMethods.PrintLinesToPlayer();
+        UIMethods.PrintLinesToPlay();
         int choice = UIMethods.GetPlayerChoice();
 
         money -= wager;
 
-        int rows = UIMethods.GetRowDimension(5);
-        int columns = UIMethods.GetColumnDimension(5);
+        int rows = UIMethods.GetRowDimension();
+        int columns = UIMethods.GetColumnDimension();
 
         UIMethods.ApplyLineSeperator();
         int[,] grid = SlotMachineActions.CreateGrid(rows, columns, random);
@@ -137,8 +137,6 @@ class Program
         decimal winnings = winningLines * PAYOUT_PER_LINE;
 
         money += winnings;
-
-        UIMethods.PrintLinesToPlayer();
         if (winningLines > 0)
         {
             UIMethods.PrintPlayerWinningLines(winningLines);
