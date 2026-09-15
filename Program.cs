@@ -18,74 +18,40 @@ class Program
 
         const decimal PAYOUT_PER_LINE = 1;
         const decimal STARTING_MONEY = 100;
+        Random random = new Random();
 
         decimal money = STARTING_MONEY;
-        Console.WriteLine($"You have £{money}");
-        Console.Write("Enter your wager: £");
-        decimal wager = decimal.Parse(Console.ReadLine());
-
+        UIMethods.PrintPlayerInitialAmount(money);
+        UIMethods.PrintPlayerWagerPrompt();
+        decimal wager = UIMethods.GetPlayerWagerAmount();
         if (wager > money)
         {
-            Console.WriteLine("You don't have enough money.");
+            UIMethods.PrintPlayerHasInsufficientFunds();
             return;
         }
 
-        Console.WriteLine();
-        Console.WriteLine("Chose which lines to play:");
-        Console.WriteLine();
-        Console.WriteLine("1. Centre horizontal");
-        Console.WriteLine("2. All horizontal");
-        Console.WriteLine("3. All vertical");
-        Console.WriteLine("4. Both diagonals");
-        Console.WriteLine("5. All lines");
-
-
-        int choice = int.Parse(Console.ReadLine());
+        UIMethods.ApplyLineSeperator();
+        UIMethods.PrintLinesToPlayer();
+        int choice = UIMethods.GetPlayerChoice();
 
         money -= wager;
 
-        Console.WriteLine("Enter row dimension for your grid");
-        int rows = int.Parse(Console.ReadLine());
+        int rows = UIMethods.GetRowDimension(5);
+        int columns = UIMethods.GetColumnDimension(5);
 
-        Console.WriteLine("Enter column dimension for your grid");
-        int columns = int.Parse(Console.ReadLine());
+        UIMethods.ApplyLineSeperator();
+        int[,] grid = SlotMachineActions.CreateGrid(rows, columns, random);
 
-        Console.WriteLine();
-
-        int[,] grid = new int[rows, columns];
-        int[] numbers = { 1, 2, 3 };
-
-        Random random = new Random();
-
-        for (int row = 0; row < grid.GetLength(0); row++)
-        {
-            for (int column = 0; column < grid.GetLength(1); column++)
-            {
-                int randomIndex = random.Next(numbers.Length);
-                grid[row, column] = numbers[randomIndex];
-            }
-        }
-
-        Console.WriteLine();
-        Console.WriteLine("Here is your spin:");
-
-        for (int row = 0; row < grid.GetLength(0); row++)
-        {
-            for (int column = 0; column < grid.GetLength(1); column++)
-            {
-                Console.Write($"{grid[row, column]} ");
-            }
-
-            Console.WriteLine();
-        }
-
+        UIMethods.ApplyLineSeperator();
+        UIMethods.PrintPlayerSpinAlertMessage();
+        SlotMachineActions.DisplayGrid(grid);
         int winningLines = 0;
 
         switch (choice)
         {
             case 1:
                 int centerRow = grid.GetLength(0) / 2;
-                if (CheckHorizontalLine(grid, centerRow))
+                if (SlotMachineActions.CheckHorizontalLine(grid, centerRow))
                 {
                     winningLines++;
                 }
@@ -95,7 +61,7 @@ class Program
             case 2:
                 for (int row = 0; row < grid.GetLength(0); row++)
                 {
-                    if (CheckHorizontalLine(grid, row))
+                    if (SlotMachineActions.CheckHorizontalLine(grid, row))
                     {
                         winningLines++;
                     }
@@ -106,7 +72,7 @@ class Program
             case 3:
                 for (int column = 0; column < grid.GetLength(1); column++)
                 {
-                    if (CheckVerticalLine(grid, column))
+                    if (SlotMachineActions.CheckVerticalLine(grid, column))
                     {
                         winningLines++;
                     }
@@ -115,12 +81,12 @@ class Program
                 break;
 
             case 4:
-                if (CheckDiagonalTopLeft(grid))
+                if (SlotMachineActions.CheckDiagonalTopLeft(grid))
                 {
                     winningLines++;
                 }
 
-                if (CheckDiagonalTopRight(grid))
+                if (SlotMachineActions.CheckDiagonalTopRight(grid))
                 {
                     winningLines++;
                 }
@@ -130,14 +96,14 @@ class Program
             case 5:
 
                 centerRow = grid.GetLength(0) / 2;
-                if (CheckHorizontalLine(grid, centerRow))
+                if (SlotMachineActions.CheckHorizontalLine(grid, centerRow))
                 {
                     winningLines++;
                 }
 
                 for (int row = 0; row < grid.GetLength(0); row++)
                 {
-                    if (CheckHorizontalLine(grid, row))
+                    if (SlotMachineActions.CheckHorizontalLine(grid, row))
                     {
                         winningLines++;
                     }
@@ -145,18 +111,18 @@ class Program
 
                 for (int column = 0; column < grid.GetLength(1); column++)
                 {
-                    if (CheckVerticalLine(grid, column))
+                    if (SlotMachineActions.CheckVerticalLine(grid, column))
                     {
                         winningLines++;
                     }
                 }
 
-                if (CheckDiagonalTopLeft(grid))
+                if (SlotMachineActions.CheckDiagonalTopLeft(grid))
                 {
                     winningLines++;
                 }
 
-                if (CheckDiagonalTopRight(grid))
+                if (SlotMachineActions.CheckDiagonalTopRight(grid))
                 {
                     winningLines++;
                 }
@@ -164,7 +130,7 @@ class Program
                 break;
 
             default:
-                Console.WriteLine("Invalid choice.");
+                UIMethods.PrintInvalidChoiceMessage();
                 return;
         }
 
@@ -172,80 +138,17 @@ class Program
 
         money += winnings;
 
-        Console.WriteLine();
-
+        UIMethods.PrintLinesToPlayer();
         if (winningLines > 0)
         {
-            Console.WriteLine($"You won {winningLines} line(s)!");
-            Console.WriteLine($"Winnings: ${winnings}");
+            UIMethods.PrintPlayerWinningLines(winningLines);
+            UIMethods.PrintPlayerWinnings(winnings);
         }
         else
         {
-            Console.WriteLine("No winning lines.");
+            UIMethods.PrintNoWinningLines();
         }
 
-        Console.WriteLine($"You now have ${money}");
-    }
-
-    static bool CheckHorizontalLine(int[,] grid, int row)
-    {
-        int firstNumber = grid[row, 0];
-
-        for (int column = 1; column < grid.GetLength(1); column++)
-        {
-            if (grid[row, column] != firstNumber)
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    static bool CheckVerticalLine(int[,] grid, int column)
-    {
-        int firstNumber = grid[0, column];
-
-        for (int row = 1; row < grid.GetLength(1); row++)
-        {
-            if (grid[row, column] != firstNumber)
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    static bool CheckDiagonalTopLeft(int[,] grid)
-    {
-        int firsNumber = grid[0, 0];
-
-        for (int i = 1; i < grid.GetLength(0); i++)
-        {
-            if (grid[i, i] != firsNumber)
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    static bool CheckDiagonalTopRight(int[,] grid)
-    {
-        int lastIndex = grid.GetLength(0) - 1;
-
-        int firstNumber = grid[0, lastIndex];
-
-        for (int i = 1; i < grid.GetLength(0); i++)
-        {
-            if (grid[i, lastIndex - i] != firstNumber)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        UIMethods.PrintBalance(money);
     }
 }
