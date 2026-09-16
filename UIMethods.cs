@@ -2,6 +2,12 @@ namespace SlotMachine;
 
 public class UIMethods
 {
+    const int CENTRE_HORIZONTAL = 1;
+    const int ALL_HORIZONTAL = 2;
+    const int ALL_VERTICAL = 3;
+    const int BOTH_DIAGONALS = 4;
+    const int ALL_LINES = 5;
+    
     public static void DisplayGrid(int [,] grid)
     {
         for (int row = 0; row < grid.GetLength(0); row++)
@@ -42,11 +48,11 @@ public class UIMethods
     {
         Console.WriteLine("Chose which lines to play:");
         Console.WriteLine();
-        Console.WriteLine("1. Centre horizontal");
-        Console.WriteLine("2. All horizontal");
-        Console.WriteLine("3. All vertical");
-        Console.WriteLine("4. Both diagonals");
-        Console.WriteLine("5. All lines");
+        Console.WriteLine($"{CENTRE_HORIZONTAL}. Centre horizontal");
+        Console.WriteLine($"{ALL_HORIZONTAL}. All horizontal");
+        Console.WriteLine($"{ALL_VERTICAL}. All vertical");
+        Console.WriteLine($"{BOTH_DIAGONALS}. Both diagonals");
+        Console.WriteLine($"{ALL_LINES}. All lines");
     }
 
     public static int GetDimension(string message)
