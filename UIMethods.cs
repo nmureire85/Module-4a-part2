@@ -2,6 +2,19 @@ namespace SlotMachine;
 
 public class UIMethods
 {
+    public static void DisplayGrid(int [,] grid)
+    {
+        for (int row = 0; row < grid.GetLength(0); row++)
+        {
+            for (int column = 0; column < grid.GetLength(1); column++)
+            {
+                Console.Write($"{grid[row, column]} ");
+            }
+
+            Console.WriteLine();
+        }
+    }
+    
     public static void PrintPlayerInitialAmount(decimal amount)
     {
         Console.WriteLine($"You have £{amount}");

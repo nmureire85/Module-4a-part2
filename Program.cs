@@ -44,7 +44,7 @@ class Program
 
         UIMethods.ApplyLineSeperator();
         UIMethods.PrintPlayerSpinAlertMessage();
-        SlotMachineActions.DisplayGrid(grid);
+        UIMethods.DisplayGrid(grid);
         int winningLines = 0;
 
         switch (choice)

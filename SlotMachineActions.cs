@@ -19,19 +19,7 @@ public class SlotMachineActions
         return grid;
     }
 
-    public static void DisplayGrid(int [,] grid)
-    {
-        for (int row = 0; row < grid.GetLength(0); row++)
-        {
-            for (int column = 0; column < grid.GetLength(1); column++)
-            {
-                Console.Write($"{grid[row, column]} ");
-            }
 
-            Console.WriteLine();
-        }
-    }
-    
     public static bool CheckHorizontalLine(int[,] grid, int row)
     {
         int firstNumber = grid[row, 0];
@@ -105,7 +93,7 @@ public class SlotMachineActions
 
         return winningLines;
     }
-    
+
     public static int CheckHorizontalLineWinnings(int[,] grid, int winningLines)
     {
         int row = grid.GetLength(0);
@@ -127,6 +115,7 @@ public class SlotMachineActions
                 winningLines++;
             }
         }
+
         return winningLines;
     }
 
@@ -136,6 +125,7 @@ public class SlotMachineActions
         {
             winningLines++;
         }
+
         return winningLines;
     }
 
@@ -145,6 +135,7 @@ public class SlotMachineActions
         {
             winningLines++;
         }
+
         return winningLines;
     }
 }
