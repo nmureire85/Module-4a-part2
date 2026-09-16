@@ -49,37 +49,18 @@ public class UIMethods
         Console.WriteLine("5. All lines");
     }
 
-    public static int GetRowDimension()
+    public static int GetDimension(string message)
     {
         while (true)
         {
-            Console.Write("Enter row dimension for your grid: ");
+            Console.Write(message);
             string input = Console.ReadLine();
 
-            if (int.TryParse(input, out int rows))
+            if (int.TryParse(input, out int dimension))
             {
-                if (rows > 0)
+                if (dimension > 0)
                 {
-                    return rows;
-                }
-            }
-
-            Console.WriteLine("Please enter a positive number.");
-        }
-    }
-    
-    public static int GetColumnDimension()
-    {
-        while (true)
-        {
-            Console.Write("Enter column dimension for your grid: ");
-            string input = Console.ReadLine();
-
-            if (int.TryParse(input, out int column))
-            {
-                if (column > 0)
-                {
-                    return column;
+                    return dimension;
                 }
             }
 

@@ -36,8 +36,8 @@ class Program
 
         money -= wager;
 
-        int rows = UIMethods.GetRowDimension();
-        int columns = UIMethods.GetColumnDimension();
+        int rows = UIMethods.GetDimension("Enter row dimension for your grid: ");
+        int columns = UIMethods.GetDimension("Enter column dimension for your grid: ");
 
         UIMethods.ApplyLineSeperator();
         int[,] grid = SlotMachineActions.CreateGrid(rows, columns, random);
