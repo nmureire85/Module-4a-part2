@@ -93,4 +93,58 @@ public class SlotMachineActions
 
         return true;
     }
+
+    public static int CheckCenterHorizontalLineWinnings(int[,] grid, int winningLines)
+    {
+        int centerRow = grid.GetLength(0) / 2;
+
+        if (CheckHorizontalLine(grid, centerRow))
+        {
+            winningLines++;
+        }
+
+        return winningLines;
+    }
+    
+    public static int CheckHorizontalLineWinnings(int[,] grid, int winningLines)
+    {
+        int row = grid.GetLength(0);
+
+        if (CheckHorizontalLine(grid, row))
+        {
+            winningLines++;
+        }
+
+        return winningLines;
+    }
+
+    public static int CheckVerticalLineWinnings(int[,] grid, int winningLines)
+    {
+        for (int column = 0; column < grid.GetLength(1); column++)
+        {
+            if (CheckVerticalLine(grid, column))
+            {
+                winningLines++;
+            }
+        }
+        return winningLines;
+    }
+
+    public static int CheckDiagonalTopLeftWinnings(int[,] grid, int winningLines)
+    {
+        if (CheckDiagonalTopLeft(grid))
+        {
+            winningLines++;
+        }
+        return winningLines;
+    }
+
+    public static int CheckDiagonalTopRightWinnings(int[,] grid, int winningLines)
+    {
+        if (CheckDiagonalTopRight(grid))
+        {
+            winningLines++;
+        }
+        return winningLines;
+    }
 }

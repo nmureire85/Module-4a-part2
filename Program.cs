@@ -50,82 +50,38 @@ class Program
         switch (choice)
         {
             case 1:
-                int centerRow = grid.GetLength(0) / 2;
-                if (SlotMachineActions.CheckHorizontalLine(grid, centerRow))
-                {
-                    winningLines++;
-                }
+                winningLines = SlotMachineActions.CheckCenterHorizontalLineWinnings(grid, winningLines);
 
                 break;
 
             case 2:
-                for (int row = 0; row < grid.GetLength(0); row++)
-                {
-                    if (SlotMachineActions.CheckHorizontalLine(grid, row))
-                    {
-                        winningLines++;
-                    }
-                }
+                winningLines = SlotMachineActions.CheckHorizontalLineWinnings(grid, winningLines);
 
                 break;
 
             case 3:
-                for (int column = 0; column < grid.GetLength(1); column++)
-                {
-                    if (SlotMachineActions.CheckVerticalLine(grid, column))
-                    {
-                        winningLines++;
-                    }
-                }
+                winningLines = SlotMachineActions.CheckVerticalLineWinnings(grid, winningLines);
 
                 break;
 
             case 4:
-                if (SlotMachineActions.CheckDiagonalTopLeft(grid))
-                {
-                    winningLines++;
-                }
+                winningLines = SlotMachineActions.CheckDiagonalTopLeftWinnings(grid, winningLines);
 
-                if (SlotMachineActions.CheckDiagonalTopRight(grid))
-                {
-                    winningLines++;
-                }
+                winningLines = SlotMachineActions.CheckDiagonalTopRightWinnings(grid, winningLines);
 
                 break;
 
             case 5:
 
-                centerRow = grid.GetLength(0) / 2;
-                if (SlotMachineActions.CheckHorizontalLine(grid, centerRow))
-                {
-                    winningLines++;
-                }
+                winningLines = SlotMachineActions.CheckCenterHorizontalLineWinnings(grid, winningLines);
+                
+                winningLines = SlotMachineActions.CheckHorizontalLineWinnings(grid, winningLines);
 
-                for (int row = 0; row < grid.GetLength(0); row++)
-                {
-                    if (SlotMachineActions.CheckHorizontalLine(grid, row))
-                    {
-                        winningLines++;
-                    }
-                }
+                winningLines = SlotMachineActions.CheckVerticalLineWinnings(grid, winningLines);
 
-                for (int column = 0; column < grid.GetLength(1); column++)
-                {
-                    if (SlotMachineActions.CheckVerticalLine(grid, column))
-                    {
-                        winningLines++;
-                    }
-                }
+                winningLines = SlotMachineActions.CheckDiagonalTopLeftWinnings(grid, winningLines);
 
-                if (SlotMachineActions.CheckDiagonalTopLeft(grid))
-                {
-                    winningLines++;
-                }
-
-                if (SlotMachineActions.CheckDiagonalTopRight(grid))
-                {
-                    winningLines++;
-                }
+                winningLines = SlotMachineActions.CheckDiagonalTopRightWinnings(grid, winningLines);
 
                 break;
 
